@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         //External
-        'g2fa' => \App\Http\Middleware\check2fa::class,
+        '2fa' => \App\Http\Middleware\check2fa::class,
+        '2faroute'=>\App\Http\Middleware\prevent2faroute::class,
     ];
 }

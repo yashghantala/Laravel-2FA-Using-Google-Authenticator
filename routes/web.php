@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Google2faController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TotpController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,21 +19,23 @@ Route::get('/', function () {
     return view("welcome");
 });
 
-Route::middleware(['auth', 'g2fa'])->group(function () {
+Route::middleware(['auth','2faroute'])->group(function () {
+    //after Login
+    Route::get('/authenticate',[TotpController::class,'index'])->name('authenticate');
+    Route::post('/authenticate',[TotpController::class,'auth2fa']);
 
-    //Google2fa Routes
-    Route::get('/enable2fa', [Google2faController::class, 'enable'])->name('enable2fa');
-    Route::post('/activate2fa', [Google2faController::class, 'activate'])->name('activate2fa');
-    Route::post('/authenticate2fa', [Google2faController::class, 'auth2fa'])->name('authenticate2fa');
+    //set 2FA first time
+    Route::get('/enable2fa',[TotpController::class,'enable2fa'])->name('enable2fa');
+    Route::post('/activate',[TotpController::class,'activate2fa'])->name('activate2fa');
 
-    //other routes
+});
+
+Route::middleware(['auth','2fa'])->group(function () {
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/users', function () {
-        return view('dashboard');
-    })->name('users');
 });
 
 require __DIR__ . '/auth.php';

@@ -10,10 +10,9 @@
 
 <body>
     <center>
-        <form action="{{ route('authenticate2fa') }}" method="POST">
+        <form action="{{ route('authenticate') }}" method="POST">
             @csrf
             <input name="gotp" type="text">
-
             <button type="submit">Authenticate</button>
         </form>
     </center>

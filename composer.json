@@ -6,12 +6,14 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "bacon/bacon-qr-code": "^2.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
-        "pragmarx/google2fa-laravel": "^1.4"
+        "pragmarx/google2fa-qrcode": "^2.1",
+        "spomky-labs/otphp": "^10.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

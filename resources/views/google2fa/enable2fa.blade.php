@@ -14,7 +14,7 @@
         <img src="{{ $img }}" alt="QR to Scan"><br>
         Save this Secret for Account Recovery<br>
         <h4>{{ $secret }}</h4><br>
-        <form action="{{ route('activate2fa') }}" method="post">
+        <form action="{{ route('enable2fa') }}" method="post">
             @csrf
             <input name="gotp" type="text" maxlength="6" placeholder="Enter OTP here"><br>
             <button type="submit">Activate</button>

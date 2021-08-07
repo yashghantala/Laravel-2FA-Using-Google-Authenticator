@@ -26,7 +26,7 @@ Route::middleware(['auth','2faroute'])->group(function () {
 
     //set 2FA first time
     Route::get('/enable2fa',[TotpController::class,'enable2fa'])->name('enable2fa');
-    Route::post('/activate',[TotpController::class,'activate2fa'])->name('activate2fa');
+    Route::post('/enable2fa',[TotpController::class,'activate2fa']);
 
 });
 

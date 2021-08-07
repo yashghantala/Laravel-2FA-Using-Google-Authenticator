@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Activate2faRequest;
-use OTPHP\TOTP;
 use PragmaRX\Google2FAQRCode\Google2FA;
 
 class TotpController extends Controller
@@ -16,8 +15,7 @@ class TotpController extends Controller
 
     public function auth2fa(Activate2faRequest $request)
     {
-        $otp = TOTP::create(auth()->user()['auth_secret']);
-        $is_valid = $otp->verify($request->validated()['gotp']);
+        $is_valid=app('VerifyOtp',['otp'=>$request->validated()['gotp']]);
 
         if ($is_valid) {
             session(['2fa' => true]);
@@ -47,8 +45,7 @@ class TotpController extends Controller
 
     public function activate2fa(Activate2faRequest $request)
     {
-        $otp = TOTP::create(session('2fa_secret'));
-        $is_valid = $otp->verify($request->validated()['gotp']);
+        $is_valid=app('VerifyOtp',['otp'=>$request->validated()['gotp'],'secret'=>session('2fa_secret')]);
 
         if ($is_valid) {
 

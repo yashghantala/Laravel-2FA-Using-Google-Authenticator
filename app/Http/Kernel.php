@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
 
         //External
         '2fa' => \App\Http\Middleware\check2fa::class,
-        '2faroute'=>\App\Http\Middleware\prevent2faroute::class,
+        '2faroute' => \App\Http\Middleware\prevent2faroute::class,
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
     ];
 }

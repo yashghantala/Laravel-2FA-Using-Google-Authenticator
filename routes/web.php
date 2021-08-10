@@ -19,23 +19,33 @@ Route::get('/', function () {
     return view("welcome");
 });
 
-Route::middleware(['auth','2faroute'])->group(function () {
+Route::middleware(['auth', '2faroute'])->group(function () {
     //after Login
-    Route::get('/authenticate',[TotpController::class,'index'])->name('authenticate');
-    Route::post('/authenticate',[TotpController::class,'auth2fa']);
+    Route::get('/authenticate', [TotpController::class, 'index'])->name('authenticate');
+    Route::post('/authenticate', [TotpController::class, 'auth2fa']);
 
     //set 2FA first time
-    Route::get('/enable2fa',[TotpController::class,'enable2fa'])->name('enable2fa');
-    Route::post('/enable2fa',[TotpController::class,'activate2fa']);
-
+    Route::get('/enable2fa', [TotpController::class, 'enable2fa'])->name('enable2fa');
+    Route::post('/enable2fa', [TotpController::class, 'activate2fa']);
 });
 
-Route::middleware(['auth','2fa'])->group(function () {
+Route::middleware(['auth', '2fa'])->group(function () {
+
+    Route::middleware(['role:superadmin'])->group(function () {
+        Route::get('/superadmin', function () {
+            return "Super Admin Route";
+        });
+    });
+
+    Route::middleware(['role:admin'])->group(function () {
+        Route::get('/admin', function () {
+            return "Admin Route";
+        });
+    });
 
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
 });
 
 require __DIR__ . '/auth.php';

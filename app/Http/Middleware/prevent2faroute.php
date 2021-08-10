@@ -22,9 +22,7 @@ class prevent2faroute
             return $next($request);
         }
 
-        if (($request->fullUrlIs(route('enable2fa')) && $auth2fa === 1) || ($request->fullUrlIs(route('authenticate')) && (session('2fa')) && $auth2fa === 1)) {
-            abort(404);
-        }
+        abort_if(($request->fullUrlIs(route('enable2fa')) && $auth2fa === 1) || ($request->fullUrlIs(route('authenticate')) && (session('2fa')) && $auth2fa === 1), 404);
 
         return redirect()->back();
     }

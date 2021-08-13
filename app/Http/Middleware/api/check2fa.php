@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware\api;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -19,8 +19,9 @@ class check2fa
         $otp_enabled = auth()->user()['2fa'];
 
         if ($otp_enabled === 0) {
-            return redirect(route('enable2fa'));
+            return response()->json(['action' => 'enable2fa', 'url' => route('apienable2fa')], 302);
         }
-        return session('2fa') ? $next($request) : redirect(route('authenticate'));
+
+        return auth()->user()->tokenCan('2fa') ? $next($request) : response()->json(['action' => 'verify2fa', 'url' => route('apiauthenticate')], 302);
     }
 }

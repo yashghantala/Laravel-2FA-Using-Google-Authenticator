@@ -63,9 +63,17 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        //External
+        //External//
+
+        //for WEB Auth
         '2fa' => \App\Http\Middleware\check2fa::class,
         '2faroute' => \App\Http\Middleware\prevent2faroute::class,
+
+        //for API Auth
+        'api2fa' => \App\Http\Middleware\api\check2fa::class,
+        'api2faroute' => \App\Http\Middleware\api\prevent2faroute::class,
+
+        //for Roles
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
     ];
 }

@@ -1,1 +1,1 @@
-2FA authenctication built in Laravel
+2FA authentication built with Laravel.
